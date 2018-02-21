@@ -5,8 +5,27 @@ Reference : http://nvie.com/posts/a-successful-git-branching-model/
 
 ## Create a local copy of the project
 **Option 1 : Good Old Git Clone**
+#### Pro
+* Easy to setup. Just copy the repository's HTTPS and do a `git clone <https:xxx.git>` in your preferred directory
+
+#### Cons
+Because we are all collaborators and have push access, these things might happen:
+* Pollute the project's repository with dangling branches and meaningless commits.
+* Somebody might fuck up something.
 
 **Option 2 : Fork**
+#### Pro 
+* All pushes from team members are in form of Pull Request. Therefore, commits can be squashed, 
+number of branches in the main repository can be controlled, thence we have a less polluted project repository
+* Anyone can do experiments in their forked repo. If the experiment fails we can simply discard the forked repository.
+
+#### Cons 
+* Slightly more tedious to setup.
+
+1. Fork the repository
+2. Add upstream. `git remote add upstream <original-repo-HTTPS>`
+3. Prevent accidental push. `git remote set-url --push upstream no_push`
+
 
 ## The Main Branches
 #### Master
@@ -70,6 +89,85 @@ and even push follow-up commits if necessary. [Reference](https://yangsu.github.
 
 ## Other Practices
 #### Commit Messages
+Reference : https://github.com/erlang/otp/wiki/writing-good-commit-messages, https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53
+
+#####Example commit message :
+> ```
+> Short (50 chars or less) summary of changes
+> 
+> More detailed explanatory text, if necessary.  Wrap it to about 72
+> characters or so.  In some contexts, the first line is treated as the
+> subject of an email and the rest of the text as the body.  The blank
+> line separating the summary from the body is critical (unless you omit
+> the body entirely); tools like rebase can get confused if you run the
+> two together.
+> 
+> Further paragraphs come after blank lines.
+> 
+>   - Bullet points are okay, too
+> 
+>   - Typically a hyphen or asterisk is used for the bullet, preceded by a
+>     single space, with blank lines in between, but conventions vary here
+> ```
+
+##### DO
+* Write the summary line and description of what you have done in the imperative mode, that is as if you were commanding someone. 
+Start the line with "Fix", "Add", "Change" instead of "Fixed", "Added", "Changed".
+* Always leave the second line blank.
+* Line break the commit message.
+
+##### DON'T
+* Don't end the summary line with a period - it's a title and titles don't end with a period.
+    
 #### Code Review
+There are plenty of articles and guideline in the internet that describe what to pay attention during a code review. 
+Just google "[language] code review checklist" .
+Here's [one](https://tedvinke.wordpress.com/2015/03/15/basic-groovy-and-grails-code-review-guidelines/) for Groovy and Grails project.
+
+TLDR (There are too many to list out, below is my summary of some important ones): 
+* Readability : Make sure code is well commented and easy to understand, i.e: Avoid using variable name such as `temp`.
+* Maintainability : Refactor repeated usage of functions or objects
+* Scalability : Is the feature that you are building easily deployable with other features (currently and future)?
+* Security : Location/Encryption of sensitve data, sanitization of user inputs.
+* Code Conventions : If a linter is properly set up it should handle this part.
+
+Feel free to add more to the list if you think it is important. We are all new to this :)
+
+**Why Code Review?**
+
+To prevent code debt accumulating in a project. 
+A badly written code can be extremely difficult to fix without severely halting the development progress.
+
+If we do code review properly, the Future You will be extremely grateful for what Current You have done.
 #### Unit Test  |  Coverage
-#### Jira Integration Convention
+Let's have 80% coverage for all old repositories, and aim for 100% for the all repositories.
+
+#### Jira Integration | Wooppy's Smart Convention
+Since we are using Jira for our project management, we MAY integrate our commits and branches to Jira Issues.
+
+##### Commits
+
+> ```
+> <ISSUE_KEY> Short (50 chars or less) summary of changes
+> 
+> Your comments
+> ```
+
+Example of `ISSUE_KEY` : `RED-30`, `MVP-69`
+
+**PS :** If your branch is already tracked according to the issue, `ISSUE_KEY` is not needed in the commit message for it to be tracked.
+
+##### Branch
+<ISSUE_KEY>-[short_description_of_feature]
+
+Example:`RED-30-logic-block`
+
+##### Workflow Transition
+I think we should also drop this since we are using Github instead of Bitbucket. Integration might be a pain in the ass.
+
+Drag and drop cards is more fun than writting comments anyway! 
+
+Reference : https://confluence.atlassian.com/fisheye/using-smart-commits-298976812.html
+____
+## This Project
+This is a template project that follows the branching practice described in this article.
