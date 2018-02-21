@@ -66,7 +66,7 @@ and even push follow-up commits if necessary. [Reference](https://yangsu.github.
     * Pass Linting (Jenkins) (Some Linting Library)
     * Pass Minimum Coverage Requirement. 80% for old repository, 100% for new repository. (Jenkins) (Some Coverage Library)
     * Code Review. Pass minimum peer approval requirement. Github has a hard limit of at least 1 reviewer. (Github)
-* Once all condition are met, the code AUTHOR should be the one who perform the merge.
+* Once all conditions are met, the code AUTHOR should be the one who perform the merge.
 
 ## Other Practices
 #### Commit Messages
