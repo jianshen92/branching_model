@@ -30,9 +30,11 @@ number of branches in the main repository can be controlled, thence we have a le
 ## The Main Branches
 #### Master
 * `origin/master` should be the main branch where the source code of HEAD always reflects a production-ready state.
+
 * No developers should directly make a commit to `master`.
 * Every time a commit is made on master, it should trigger a CI/CD build, in our case, Jenkins, 
 to automatically deploy our software to the production server.
+
 #### Develop
 * `origin/develop` should be the main branch where the source code of HEAD always reflects a state with the latest delivered 
 development changes for the next release.
