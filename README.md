@@ -5,7 +5,7 @@ Reference : http://nvie.com/posts/a-successful-git-branching-model/
 
 ## Create a local copy of the project
 **Option 1 : Good Old Git Clone**
-#### Pro
+#### Pros
 * Easy to setup. Just copy the repository's HTTPS and do a `git clone <https:xxx.git>` in your preferred directory
 
 #### Cons
@@ -14,9 +14,9 @@ Because we are all collaborators and have push access, these things might happen
 * Somebody might fuck up something.
 
 **Option 2 : Fork**
-#### Pro 
-* All pushes from team members are in form of Pull Request. Therefore, commits can be squashed, 
-number of branches in the main repository can be controlled, thence we have a less polluted project repository
+#### Pros
+* All pushes from team members are in the form of Pull Requests. Therefore, commits can be squashed, 
+number of branches in the main repository can be controlled, thence we have a less polluted project repository.
 * Anyone can do experiments in their forked repo. If the experiment fails we can simply discard the forked repository.
 
 #### Cons 
@@ -30,13 +30,15 @@ number of branches in the main repository can be controlled, thence we have a le
 ## The Main Branches
 #### Master
 * `origin/master` should be the main branch where the source code of HEAD always reflects a production-ready state.
-* No developers should directly make a commit to `master`
-* Every time a commit is made on master should trigger a CI/CD build, in our case, Jenkins, 
-to automatically deploy our software to the production server
+
+* No developers should directly make a commit to `master`.
+* Every time a commit is made on master, it should trigger a CI/CD build, in our case, Jenkins, 
+to automatically deploy our software to the production server.
+
 #### Develop
 * `origin/develop` should be the main branch where the source code of HEAD always reflects a state with the latest delivered 
 development changes for the next release.
-* Every commit in `develop` should trigger a CI/CD build to deploy the system on the development server
+* Every commit in `develop` should trigger a CI/CD build to deploy the system on the development server.
 * When the source code in the `develop` branch reaches a stable point and is ready to be released, 
 all of the changes should be merged back into `master` and then tagged with a release number.
 
@@ -50,10 +52,10 @@ all of the changes should be merged back into `master` and then tagged with a re
 * Branch naming convention 
     * Anything except `master`, `develop`, or `hotfix-*`
     * Naming should be VERBOSE enough to describe the task/feature of the feature branch. 
-    i.e : `logic-block-barring`, `gantry-ui-skeleton`, `api-connector`
+    i.e : `logic-block-barring`, `gantry-ui-skeleton`, `api-connector`.
 * Once the development for the branch is completed, instead of merging directly, submit a **Pull Request** (PR).
 * Avoid compressing too many tasks/features into a feature branch. 
-If a branch takes too long to complete might result incompatibility during merging. 
+If a branch takes too long to complete, it might result incompatibility during merging. 
 Ideally a branch should sync with a Jira task, which will be discussed further.
 
 #### Hotfix
@@ -64,16 +66,16 @@ Ideally a branch should sync with a Jira task, which will be discussed further.
 * Branch naming convention - `hotfix-*`
 
 #### Release (We are omitting this)
-* Release branches support preparation of a new production release. 
-It serves as a middle layer between `develop` and `master`. 
+* Release branches support the preparation of a new production release. 
+It serves as a middle layer between the `develop` and `master` branches. 
 Usually in `release`, only bugfixes and last minute changes are made.
-* I have decided to drop this branch for our Wooppy's project for a few reason:
-    * Simplify project branches and speed up development.
-    * CI/CD workflow with pull requests and code review would means the source codes in `develop` is rather robust.
+* I have decided to drop this branch for our Wooppy's project for a few reasons:
+    * To simplify project branches and speed up development.
+    * CI/CD workflow with pull requests and code reviews would mean that the source code in `develop` is quite robust.
 
 
 ## Pull Requests
-Pull requests let you tell others about changes you've pushed to a GitHub repository. 
+Pull requests allow you to notify the other collaborators about the changes you've pushed to a GitHub repository. 
 Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, 
 and even push follow-up commits if necessary. [Reference](https://yangsu.github.io/pull-request-tutorial/)
 
@@ -91,7 +93,7 @@ and even push follow-up commits if necessary. [Reference](https://yangsu.github.
 #### Commit Messages
 Reference : https://github.com/erlang/otp/wiki/writing-good-commit-messages, https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53
 
-#####Example commit message :
+##### Example commit message :
 > ```
 > Short (50 chars or less) summary of changes
 > 
@@ -120,7 +122,7 @@ Start the line with "Fix", "Add", "Change" instead of "Fixed", "Added", "Changed
 * Don't end the summary line with a period - it's a title and titles don't end with a period.
     
 #### Code Review
-There are plenty of articles and guideline in the internet that describe what to pay attention during a code review. 
+There are plenty of articles and guideline in the internet that describe what to pay attention to during a code review. 
 Just google "[language] code review checklist" .
 Here's [one](https://tedvinke.wordpress.com/2015/03/15/basic-groovy-and-grails-code-review-guidelines/) for Groovy and Grails project.
 
@@ -128,7 +130,7 @@ TLDR (There are too many to list out, below is my summary of some important ones
 * Readability : Make sure code is well commented and easy to understand, i.e: Avoid using variable name such as `temp`.
 * Maintainability : Refactor repeated usage of functions or objects
 * Scalability : Is the feature that you are building easily deployable with other features (currently and future)?
-* Security : Location/Encryption of sensitve data, sanitization of user inputs.
+* Security : Location/Encryption of sensitive data, sanitization of user inputs.
 * Code Conventions : If a linter is properly set up it should handle this part.
 
 Feel free to add more to the list if you think it is important. We are all new to this :)
@@ -138,7 +140,7 @@ Feel free to add more to the list if you think it is important. We are all new t
 To prevent code debt accumulating in a project. 
 A badly written code can be extremely difficult to fix without severely halting the development progress.
 
-If we do code review properly, the Future You will be extremely grateful for what Current You have done.
+If we do code review properly, the Future You will be extremely grateful for what the Current You have done.
 #### Unit Test  |  Coverage
 Let's have 80% coverage for all old repositories, and aim for 100% for the all repositories.
 
@@ -147,25 +149,41 @@ Since we are using Jira for our project management, we MAY integrate our commits
 
 ##### Commits
 
-> ```
-> <ISSUE_KEY> Short (50 chars or less) summary of changes
-> 
-> Your comments
-> ```
+Based on the habits and practices that we are comfortable with, we will start with integrating Smart Commits with Jira's task status board (the one with TO DO, IN PROGRESS and DONE). The main functionality would be to transition tasks around the task status board, and to add comment to a particular task.
+
+The general syntax to do that would be :
+
+>`<ignored text> ISSUE_KEY <ignored text> #<transition_name> #comment <comment_string>`
+
+Two sets of commands are used in the above syntax, which are `#<transition_name>` and `#comment <comment_string>`
 
 Example of `ISSUE_KEY` : `RED-30`, `MVP-69`
 
+There are only 3 types of `<transition_name>` for the time being : `to-do`, `in-progress`, and `done`.
+
+**A proposed commit message format would be :**
+> ```
+> This part of the message is seen only by Github. It can span for more than one line.
+>
+> RED-30 #in-progress #comment This part of comment would be added into the task card in Jira, hence it is completely optional.
+> ```
+
+Each commit command in the Smart Commit must not span more than one line (i.e. you cannot use carriage returns). However, you can use multiple commands in the same commit message, and these can be on the same line.
+
 **PS :** If your branch is already tracked according to the issue, `ISSUE_KEY` is not needed in the commit message for it to be tracked.
 
-##### Branch
-<ISSUE_KEY>-[short_description_of_feature]
+##### Linking an issue to a branch
 
-Example:`RED-30-logic-block`
+The general syntax to do that would be:
+
+> `<ISSUE_KEY>-<BRANCH_NAME>`
+
+Example : `RED-30-logic-block`
 
 ##### Workflow Transition
-I think we should also drop this since we are using Github instead of Bitbucket. Integration might be a pain in the ass.
+I think we should also drop this since we are using Github instead of Bitbucket. Integration might be a pain in the ass. The default ones are sufficient for now.
 
-Drag and drop cards is more fun than writting comments anyway! 
+Drag and drop cards is more fun than writing comments anyway!
 
 Reference : https://confluence.atlassian.com/fisheye/using-smart-commits-298976812.html
 ____
