@@ -147,23 +147,39 @@ Since we are using Jira for our project management, we MAY integrate our commits
 
 ##### Commits
 
-> ```
-> <ISSUE_KEY> Short (50 chars or less) summary of changes
-> 
-> Your comments
-> ```
+Based on the habits and practices that we are comfortable with, we will start with integrating Smart Commits with Jira's task status board (the one with TO DO, IN PROGRESS and DONE). The main functionality would be to transition tasks around the task status board, and to add comment to a particular task.
+
+The general syntax to do that would be :
+
+>`<ignored text> ISSUE_KEY <ignored text> #<transition_name> #comment <comment_string>`
+
+Two sets of commands are used in the above syntax, which are `#<transition_name>` and `#comment <comment_string>`
 
 Example of `ISSUE_KEY` : `RED-30`, `MVP-69`
 
+There are only 3 types of `<transition_name>` for the time being : `to-do`, `in-progress`, and `done`.
+
+**A proposed commit message format would be :**
+> ```
+> This part of the message is seen only by Github. It can span for more than one line.
+>
+> RED-30 #in-progress #comment This part of comment would be added into the task card in Jira, hence it is completely optional.
+> ```
+
+Each commit command in the Smart Commit must not span more than one line (i.e. you cannot use carriage returns). However, you can use multiple commands in the same commit message, and these can be on the same line.
+
 **PS :** If your branch is already tracked according to the issue, `ISSUE_KEY` is not needed in the commit message for it to be tracked.
 
-##### Branch
-<ISSUE_KEY>-[short_description_of_feature]
+##### Linking an issue to a branch
 
-Example:`RED-30-logic-block`
+The general syntax to do that would be:
+
+> `<ISSUE_KEY>-<BRANCH_NAME>`
+
+Example : `RED-30-logic-block`
 
 ##### Workflow Transition
-I think we should also drop this since we are using Github instead of Bitbucket. Integration might be a pain in the ass.
+I think we should also drop this since we are using Github instead of Bitbucket. Integration might be a pain in the ass. The default ones are sufficient for now.
 
 Drag and drop cards is more fun than writting comments anyway! 
 
